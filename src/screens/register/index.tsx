@@ -15,7 +15,7 @@ import { FontAwesome } from "@expo/vector-icons";
 const RegisterScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.mainContainer}>
-      <ScrollView style={{marginBottom:20}}>
+      <ScrollView style={{marginBottom:20}} showsVerticalScrollIndicator={false}>
         <View style={styles.imageContainer}>
           <Image source={logo} style={styles.image} />
         </View>

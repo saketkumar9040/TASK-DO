@@ -2,9 +2,10 @@ import { StyleSheet ,Platform} from "react-native";
 
 export const styles = StyleSheet.create({
    mainContainer:{
-      paddingTop:Platform.OS ==="android"?40:0
+    //   paddingTop:Platform.OS ==="android"?40:0
    },
    imageContainer:{
+    paddingTop:80,
       padding:30,
       alignItems:"center",
       backgroundColor:"#81d4fa",
