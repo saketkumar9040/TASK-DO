@@ -14,8 +14,8 @@ const AuthNavigator = () => {
         <MainNavigator />
       ) : (
         <Stack.Navigator>
-          <Stack.Screen name="login" component={LoginScreen} />
-          <Stack.Screen name="register" component={RegisterScreen} />
+          <Stack.Screen name="login" component={LoginScreen} options={{headerShown:false}}/>
+          <Stack.Screen name="register" component={RegisterScreen} options={{headerShown:false}}/>
         </Stack.Navigator>
       )}
     </NavigationContainer>
