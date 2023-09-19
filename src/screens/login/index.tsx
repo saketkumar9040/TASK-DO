@@ -5,11 +5,14 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
+  Alert
 } from "react-native";
 import React, { useState } from "react";
 import { styles } from "./style";
 import logo from "../../../assets/images/todoIcon1.png";
 import { Entypo, Zocial } from "@expo/vector-icons";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase/firebaseConfig";
 
 const LoginScreen = ({ navigation }) => {
   const [userDetails, setUserDetails] = useState({
@@ -18,7 +21,17 @@ const LoginScreen = ({ navigation }) => {
   });
 
   const submitHandler = async () => {
-    console.log("login in...");
+     try {
+      if( userDetails.email===""||userDetails.password===""){
+        return Alert.alert("OOPS😯","Please enter all the fields")
+      };
+      const userLogin = await signInWithEmailAndPassword(auth,userDetails.email,userDetails.password);
+      const {} =userLogin.user;
+      
+     } catch (error) {
+        console.log(error.message);
+        Alert.alert("Sorry🙄","failed to login user")
+     }
   };
 
   return (

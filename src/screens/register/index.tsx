@@ -6,11 +6,14 @@ import {
   TextInput,
   TouchableOpacity,
   ScrollView,
+  Alert
 } from "react-native";
 import React, { useState } from "react";
 import { styles } from "./style";
 import logo from "../../../assets/images/todoIcon2.png";
-import { FontAwesome, Zocial, Entypo } from '@expo/vector-icons';
+import { FontAwesome, Zocial, Entypo } from "@expo/vector-icons";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth, db } from "../../firebase/firebaseConfig";
 
 const RegisterScreen = ({ navigation }) => {
   const [userDetails, setUserDetails] = useState({
@@ -21,7 +24,18 @@ const RegisterScreen = ({ navigation }) => {
   });
 
   const submitHandler = async () => {
-    console.log("registering");
+     try {
+      if(userDetails.name===""|| userDetails.email===""||userDetails.phone===""||userDetails.password===""){
+        return Alert.alert("OOPS😯","Please enter all the fields")
+      }
+      const registerUser = await createUserWithEmailAndPassword(auth,userDetails.email,userDetails.password);
+      const {uid} = registerUser.user
+      console.log(uid);
+      
+     } catch (error) {
+        console.log(error.message);
+        Alert.alert("Sorry😪","failed to register user")
+     }
   };
 
   return (
@@ -39,7 +53,7 @@ const RegisterScreen = ({ navigation }) => {
             style={styles.textInput}
             placeholder="Enter name here"
             value={userDetails.name}
-            onChangeText={(e)=>setUserDetails({...userDetails,name:e})}
+            onChangeText={(e) => setUserDetails({ ...userDetails, name: e })}
           />
         </View>
         <View style={styles.inputContainer}>
@@ -48,27 +62,29 @@ const RegisterScreen = ({ navigation }) => {
             style={styles.textInput}
             placeholder="Enter e-mail here"
             value={userDetails.email}
-            onChangeText={(e)=>setUserDetails({...userDetails,email:e})}
+            onChangeText={(e) => setUserDetails({ ...userDetails, email: e })}
           />
         </View>
         <View style={styles.inputContainer}>
-        <FontAwesome name="phone" size={32} color="#fff" />
+          <FontAwesome name="phone" size={32} color="#fff" />
           <TextInput
             style={styles.textInput}
             placeholder="Enter phone no here"
             value={userDetails.phone}
             keyboardType="numeric"
-            onChangeText={(e)=>setUserDetails({...userDetails,phone:e})}
+            onChangeText={(e) => setUserDetails({ ...userDetails, phone: e })}
           />
         </View>
         <View style={styles.inputContainer}>
-        <Entypo name="lock" size={24} color="#fff" />
+          <Entypo name="lock" size={24} color="#fff" />
           <TextInput
             style={styles.textInput}
             placeholder="Enter Password here"
             value={userDetails.password}
             secureTextEntry={true}
-            onChangeText={(e)=>setUserDetails({...userDetails,password:e})}
+            onChangeText={(e) =>
+              setUserDetails({ ...userDetails, password: e })
+            }
           />
         </View>
         <TouchableOpacity
