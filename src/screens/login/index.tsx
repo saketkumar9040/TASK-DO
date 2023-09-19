@@ -1,4 +1,4 @@
-import { View, Text ,SafeAreaView,Image, TextInput} from 'react-native'
+import { View, Text ,SafeAreaView,Image, TextInput, TouchableOpacity} from 'react-native'
 import React from 'react';
 import { styles } from './style';
 import logo from "../../../assets/images/todoIcon.png";
@@ -24,8 +24,14 @@ const LoginScreen = () => {
 
               />
         </View>
-        <View style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.buttonContainer}>
           <Text style={styles.buttonText}>LOGIN</Text>
+        </TouchableOpacity>
+        <View style={styles.registerContainer}>
+            <Text style={styles.newUserText}>New to TASK-DO ?</Text>
+            <TouchableOpacity style={styles.registerButtonContainer}>
+            <Text style={styles.registerText}>REGISTER</Text>
+            </TouchableOpacity>
         </View>
     </SafeAreaView>
   )

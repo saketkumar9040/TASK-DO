@@ -41,5 +41,28 @@ export const styles = StyleSheet.create({
      fontSize:25,
      letterSpacing:2,
      fontWeight:"800"
+   },
+   registerContainer:{
+    marginTop:30,
+    alignSelf:"center",
+    gap:20,
+   },
+   newUserText:{
+    fontSize:18,
+    color:"#81d4fa",
+    fontWeight:"900",
+    letterSpacing:2
+   },
+   registerButtonContainer:{
+     paddingHorizontal:30,
+     borderWidth:4,
+     borderColor:"#81d4fa"
+   },
+   registerText:{
+       textAlign:"center",
+       color:"#81d4fA",
+       fontSize:20,
+       fontWeight:"900",
+       letterSpacing:2,
    }
 })
