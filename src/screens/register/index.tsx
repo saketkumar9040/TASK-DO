@@ -19,7 +19,6 @@ const RegisterScreen = ({ navigation }) => {
     phone: "",
     password: "",
   });
-  console.log(userDetails)
 
   const submitHandler = async () => {
     console.log("registering");
@@ -53,7 +52,7 @@ const RegisterScreen = ({ navigation }) => {
           />
         </View>
         <View style={styles.inputContainer}>
-        <FontAwesome name="phone" size={24} color="#fff" />
+        <FontAwesome name="phone" size={32} color="#fff" />
           <TextInput
             style={styles.textInput}
             placeholder="Enter phone no here"

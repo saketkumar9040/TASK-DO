@@ -16,7 +16,6 @@ const LoginScreen = ({ navigation }) => {
     email: "",
     password: "",
   });
-  console.log(userDetails)
 
   const submitHandler = async () => {
     console.log("login in...");
