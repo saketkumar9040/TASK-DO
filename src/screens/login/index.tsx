@@ -46,6 +46,7 @@ const LoginScreen = ({ navigation }) => {
           placeholder="Enter e-mail here"
           value={userDetails.email}
           onChangeText={(e)=>setUserDetails({...userDetails,email:e})}
+          autoCapitalize="none"
         />
       </View>
       <View style={styles.inputContainer}>
@@ -56,6 +57,7 @@ const LoginScreen = ({ navigation }) => {
           secureTextEntry={true}
           value={userDetails.password}
           onChangeText={(e)=>setUserDetails({...userDetails,password:e})}
+          autoCapitalize="none"
         />
       </View>
       <TouchableOpacity

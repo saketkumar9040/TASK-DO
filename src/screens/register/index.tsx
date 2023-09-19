@@ -13,7 +13,9 @@ import { styles } from "./style";
 import logo from "../../../assets/images/todoIcon2.png";
 import { FontAwesome, Zocial, Entypo } from "@expo/vector-icons";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { child, getDatabase, ref, set } from "firebase/database";
 import { auth, db } from "../../firebase/firebaseConfig";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const RegisterScreen = ({ navigation }) => {
   const [userDetails, setUserDetails] = useState({
@@ -27,10 +29,36 @@ const RegisterScreen = ({ navigation }) => {
      try {
       if(userDetails.name===""|| userDetails.email===""||userDetails.phone===""||userDetails.password===""){
         return Alert.alert("OOPS😯","Please enter all the fields")
-      }
+      };
+
+      // CREATING USER AUTHENTICATION CREDENTIALS IN FIREBASE =====================================>
       const registerUser = await createUserWithEmailAndPassword(auth,userDetails.email,userDetails.password);
       const {uid} = registerUser.user
       console.log(uid);
+
+      // SAVING USER DATA TO REALTIME DATABASE =====================================================>
+
+      const userData = {
+        name:userDetails.name,
+        email:userDetails.email,
+        phone:userDetails.phone,
+        password:userDetails.password,
+        uid: uid,
+        signUpDate: new Date().toISOString(),
+      };
+
+      const dbRef = ref(getDatabase());
+      const childRef = child(dbRef,`UserData/${uid}`);
+      await set(childRef,userData)
+
+      // STORING USER DETAILS IN ASYNC STORAGE =====================================================>
+      await AsyncStorage.setItem("userData",JSON.stringify({
+        email:userDetails.email,
+        password:userDetails.password
+      }));
+      let value = await AsyncStorage.getItem("userData");
+      console.log(value)
+      Alert.alert("Hurray🤩","user register successfully")
       
      } catch (error) {
         console.log(error.message);
@@ -54,6 +82,7 @@ const RegisterScreen = ({ navigation }) => {
             placeholder="Enter name here"
             value={userDetails.name}
             onChangeText={(e) => setUserDetails({ ...userDetails, name: e })}
+            autoCapitalize="none"
           />
         </View>
         <View style={styles.inputContainer}>
@@ -63,6 +92,7 @@ const RegisterScreen = ({ navigation }) => {
             placeholder="Enter e-mail here"
             value={userDetails.email}
             onChangeText={(e) => setUserDetails({ ...userDetails, email: e })}
+            autoCapitalize="none"
           />
         </View>
         <View style={styles.inputContainer}>
@@ -73,6 +103,7 @@ const RegisterScreen = ({ navigation }) => {
             value={userDetails.phone}
             keyboardType="numeric"
             onChangeText={(e) => setUserDetails({ ...userDetails, phone: e })}
+            autoCapitalize="none"
           />
         </View>
         <View style={styles.inputContainer}>
@@ -85,6 +116,7 @@ const RegisterScreen = ({ navigation }) => {
             onChangeText={(e) =>
               setUserDetails({ ...userDetails, password: e })
             }
+            autoCapitalize="none"
           />
         </View>
         <TouchableOpacity

@@ -8,7 +8,8 @@ const firebaseConfig = {
   projectId: "task-do-fc2ea",
   storageBucket: "task-do-fc2ea.appspot.com",
   messagingSenderId: "757184607582",
-  appId: "1:757184607582:web:5761fa17f43dc0fc294bcf"
+  appId: "1:757184607582:web:5761fa17f43dc0fc294bcf",
+  databaseURL:"https://task-do-fc2ea-default-rtdb.asia-southeast1.firebasedatabase.app/"
 };
 
 // Initialize Firebase
