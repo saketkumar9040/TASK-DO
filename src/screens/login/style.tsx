@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
    inputContainer:{
     flexDirection:"row",
     alignItems:"center",
-    margin:20,
+    margin:15,
     paddingHorizontal:10,
     backgroundColor:'#81d4fa',
     // paddingVertical:2,
