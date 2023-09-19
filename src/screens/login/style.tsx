@@ -35,6 +35,7 @@ export const styles = StyleSheet.create({
     alignSelf:'center',
     backgroundColor:"#81d4fa",
     paddingHorizontal:50,
+    borderRadius:10,
    },
    buttonText:{
      color:"#fff",
@@ -56,7 +57,8 @@ export const styles = StyleSheet.create({
    registerButtonContainer:{
      paddingHorizontal:30,
      borderWidth:4,
-     borderColor:"#81d4fa"
+     borderColor:"#81d4fa",
+     borderRadius:10,
    },
    registerText:{
        textAlign:"center",
