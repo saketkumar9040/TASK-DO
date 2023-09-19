@@ -16,8 +16,11 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { child, getDatabase, ref, set } from "firebase/database";
 import { auth, db } from "../../firebase/firebaseConfig";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { authenticate } from "../../redux/authSlice";
 
 const RegisterScreen = ({ navigation }) => {
+
+  const dispatch = useDispatch();
   const [userDetails, setUserDetails] = useState({
     name: "",
     email: "",
@@ -52,12 +55,19 @@ const RegisterScreen = ({ navigation }) => {
       await set(childRef,userData)
 
       // STORING USER DETAILS IN ASYNC STORAGE =====================================================>
+
       await AsyncStorage.setItem("userData",JSON.stringify({
         email:userDetails.email,
         password:userDetails.password
       }));
-      let value = await AsyncStorage.getItem("userData");
-      console.log(value)
+
+      // DISPATCH DATA TO THE STORE FOR AUTHORIZATION OF USER  ====================================>
+
+       dispatch(authenticate({userData:{
+        email:userDetails.email,
+        password:userDetails.password
+       }}));
+
       Alert.alert("Hurray🤩","user register successfully")
       
      } catch (error) {

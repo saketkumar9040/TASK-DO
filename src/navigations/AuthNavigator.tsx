@@ -5,22 +5,13 @@ import RegisterScreen from "../screens/register";
 import MainNavigator from "./MainNavigator";
 import {useEffect,useState} from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useSelector } from "react-redux";
 
 const Stack = createNativeStackNavigator();
 
 const AuthNavigator = () => {
-  const [isAuth,setIsAuth] = useState(false);
-
-  useEffect(()=>{
-    const storedUserData = async () => {
-        let value = await AsyncStorage.getItem("userData");
-        console.log(value)
-        if(value!== null){
-          setIsAuth(true)
-        }
-    }
-  },[]);
-
+   const isAuth = useSelector((state) => state.auth.userData.email !== null);
+   
   return (
     <NavigationContainer>
       {isAuth ? (
