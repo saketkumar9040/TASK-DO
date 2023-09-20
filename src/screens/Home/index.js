@@ -14,11 +14,12 @@ import { styles } from "./style";
 import logo from "../../../assets/images/homeIcon.png";
 import { Dialog, Button, TextInput } from "react-native-paper";
 import { auth } from "../../firebase/firebaseConfig";
-import { child, getDatabase, push, ref } from "firebase/database";
+import { child, getDatabase, push, ref, update } from "firebase/database";
 import { useDispatch, useSelector } from "react-redux";
 import { addTask } from "../../redux/taskSlice";
 const HomeScreen = () => {
   const dispatch = useDispatch();
+  const loggedInUser = auth.currentUser;
 
   const allTasks = useSelector((state) => state.task.taskList);
   const taskList = Object.values(allTasks)
@@ -33,8 +34,6 @@ const HomeScreen = () => {
 
   const addTaskHandler = async () => {
     try {
-      // FETCHING LOGGED IN USER DETAILS =========================================>
-      const loggedInUser = auth.currentUser;
 
       // ADDING TASK TO REALTIME DATABASE =========================================>
 
@@ -62,6 +61,26 @@ const HomeScreen = () => {
     }
   };
 
+  const markCompletedHandler = async (item) => {
+     try {
+      console.log(item.key)
+      const status = !item.completed
+      const dbRef = ref(getDatabase());
+      const childRef = child(dbRef,`Tasks/${loggedInUser.uid}/${item.key}`)
+      const updatedTask = {
+        ...item,
+        completed:status
+      }
+      update(childRef,updatedTask);
+
+     } catch (error) {
+      console.log(error)
+     }
+  };
+  
+  const deleteTaskHandler = async () => {
+
+  }
   return (
     <>
       <SafeAreaView style={styles.mainContainer}>
@@ -83,8 +102,8 @@ const HomeScreen = () => {
                         {item.item.description}
                       </Text>
                       <View style={styles.taskIconContainer}>
-                        <TouchableOpacity>
-                        <Fontisto name="checkbox-passive" size={30} color="#fff" />
+                        <TouchableOpacity onPress={()=>markCompletedHandler(item.item)}>
+                        <Fontisto name={item.item.completed?"checkbox-active":"checkbox-passive"} size={30} color="#fff" />
                         </TouchableOpacity>
                         <TouchableOpacity>
                         <AntDesign name="delete" size={30} color="#fff" />
