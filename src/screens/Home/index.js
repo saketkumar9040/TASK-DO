@@ -71,9 +71,10 @@ const HomeScreen = () => {
         {taskList.length > 0 ? (
           <>
             <FlatList
+              showsVerticalScrollIndicator={false}
               data={taskList}
               renderItem={(item) => {
-                console.log(item.item);
+                // console.log(item.item);
                 return (
                   <>
                     <View style={styles.tasksContainer}>
