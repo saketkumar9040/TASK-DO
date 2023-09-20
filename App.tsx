@@ -1,8 +1,11 @@
+import { Provider } from "react-redux";
 import AuthNavigator from "./src/navigations/AuthNavigator";
+import { store } from "./src/redux/store";
 
 export default function App() {
   return (
-  <AuthNavigator/>
+    <Provider store={store}>
+      <AuthNavigator />
+    </Provider>
   );
 }
-
