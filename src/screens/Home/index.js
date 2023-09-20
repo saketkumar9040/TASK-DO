@@ -6,7 +6,6 @@ import logo from "../../../assets/images/homeIcon.png"
 import { Dialog ,Button,TextInput} from 'react-native-paper';
 
 const HomeScreen = () => {
-  const [ taskList,setTaskList] = useState([]);
   const [openDialog, setopenDialog] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
