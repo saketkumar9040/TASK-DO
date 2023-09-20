@@ -10,6 +10,8 @@ const HomeScreen = () => {
   const [openDialog, setopenDialog] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  console.log(title)
+  console.log(description)
  
   const hideDialog = () => {
     setopenDialog(!openDialog);
@@ -46,17 +48,17 @@ const HomeScreen = () => {
             style={styles.input}
             placeholder="Enter Title"
             value={title}
-            onChangeText={setTitle}
+            onChangeText={(e)=>setTitle(e)}
             autoCapitalize="none"
           />
           <TextInput
             style={styles.input}
             placeholder="Enter description"
             value={description}
-            onChangeText={setDescription}
+            onChangeText={(e)=>setDescription(e)}
             autoCapitalize="none"
-            multiline
-            numberOfLines={5}
+            multiline={true}
+            numberOfLines={4}
           />
           <View style={{ flexDirection: "row", alignItems: "center",justifyContent:"space-between" }}>
             <TouchableOpacity onPress={()=>hideDialog()}>
