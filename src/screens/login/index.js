@@ -5,7 +5,7 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
-  Alert
+  Alert,
 } from "react-native";
 import React, { useState } from "react";
 import { styles } from "./style";
@@ -13,25 +13,55 @@ import logo from "../../../assets/images/todoIcon1.png";
 import { Entypo, Zocial } from "@expo/vector-icons";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
+import { child, get, getDatabase, ref } from "firebase/database";
+import { useDispatch } from "react-redux";
+import { authenticate } from "../../redux/authSlice";
 
 const LoginScreen = ({ navigation }) => {
+
+  const dispatch = useDispatch();
+
   const [userDetails, setUserDetails] = useState({
     email: "",
     password: "",
   });
 
   const submitHandler = async () => {
-     try {
-      if( userDetails.email===""||userDetails.password===""){
-        return Alert.alert("OOPS😯","Please enter all the fields")
-      };
-      const userLogin = await signInWithEmailAndPassword(auth,userDetails.email,userDetails.password);
-      const {} =userLogin.user;
+    try {
+      if (userDetails.email === "" || userDetails.password === "") {
+        return Alert.alert("OOPS😯", "Please enter all the fields");
+      }
+      // VERIFY LOGIN CREDENTIALS IN FIREBASE==============================================>
+
+      const userLogin = await signInWithEmailAndPassword(
+        auth,
+        userDetails.email,
+        userDetails.password
+      );
+      const { uid,stsTokenManager } = userLogin.user;
+      const {accessToken,ExpirationTime} = stsTokenManager;
+      // console.log(accessToken);
+
+      // FETCH USERDATA FROM REALTIME DATABASE =============================================>
+
+      const dbRef = ref(getDatabase());
+      const childRef = child(dbRef, `UserData/${uid}`);
+      const snapshot = (await get(childRef)).val();
+      console.log(snapshot);
+
+      // DISPATCH USERDATA TO REDUX STORE ===================================================>
+
+      dispatch(authenticate({userData:{
+        email:snapshot.email,
+        password:snapshot.password
+      }}));
       
-     } catch (error) {
-        console.log(error.message);
-        Alert.alert("Sorry🙄","failed to login user")
-     }
+      Alert.alert("Hurray🤩",`Dear ${snapshot.name} logged in successfully`);
+
+    } catch (error) {
+      console.log(error.message);
+      Alert.alert("Sorry🙄", "failed to login user");
+    }
   };
 
   return (
@@ -45,7 +75,7 @@ const LoginScreen = ({ navigation }) => {
           style={styles.textInput}
           placeholder="Enter e-mail here"
           value={userDetails.email}
-          onChangeText={(e)=>setUserDetails({...userDetails,email:e})}
+          onChangeText={(e) => setUserDetails({ ...userDetails, email: e })}
           autoCapitalize="none"
         />
       </View>
@@ -56,7 +86,7 @@ const LoginScreen = ({ navigation }) => {
           placeholder="Enter Password here"
           secureTextEntry={true}
           value={userDetails.password}
-          onChangeText={(e)=>setUserDetails({...userDetails,password:e})}
+          onChangeText={(e) => setUserDetails({ ...userDetails, password: e })}
           autoCapitalize="none"
         />
       </View>
