@@ -7,6 +7,10 @@ export const styles = StyleSheet.create({
         alignItems:"center"
     },
     logoContainer:{
+        paddingTop:30,
+        flexDirection:"row",
+        alignItems:"center",
+        
     },
     logoImage:{
       width:200,

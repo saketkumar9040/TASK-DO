@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity,SafeAreaView, Image, ScrollView, Alert } from 'react-native';
+import { View, Text, TouchableOpacity,SafeAreaView, Image, ScrollView, Alert, FlatList } from 'react-native';
 import React, { useState } from 'react'
 import { Entypo } from '@expo/vector-icons';
 import { styles } from './style';
@@ -13,7 +13,7 @@ const HomeScreen = () => {
   const dispatch = useDispatch();
 
   const taskList = useSelector((state)=>state.task.taskList);
-  console.log(taskList)
+  // console.log(taskList)
   const [openDialog, setOpenDialog] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -60,9 +60,34 @@ const HomeScreen = () => {
       <View style={styles.logoContainer}>
           <Image source={logo} style={styles.logoImage}/>
       </View>
-      <ScrollView style={styles.tasksContainer}>
-         
-      </ScrollView>
+     {
+      taskList.length >0 ? (
+        <>
+        <FlatList
+           data={taskList}
+           renderItem={(item)=>{
+            console.log(item.item)
+            return (
+              <>
+              <View style={styles.tasksContainer}>
+                <Text>{item.item.title}
+                  </Text>
+                <Text>{item.item.description}
+                  </Text>
+                  <View>
+
+                  </View>
+              </View>
+              </>
+            )
+           }}
+        />
+        </>
+      ):(
+        <>
+        </>
+      )
+     }
     </SafeAreaView>
     <TouchableOpacity style={styles.addTaskContainer} onPress={()=>hideDialog()}>
      <Entypo name="add-to-list" size={40} color="#fff" />
