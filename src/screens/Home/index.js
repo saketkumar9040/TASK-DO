@@ -70,9 +70,9 @@ const HomeScreen = () => {
             return (
               <>
               <View style={styles.tasksContainer}>
-                <Text>{item.item.title}
+                <Text style={styles.taskTitle}>{item.item.title}
                   </Text>
-                <Text>{item.item.description}
+                <Text style={styles.taskDescription}>{item.item.description}
                   </Text>
                   <View>
 

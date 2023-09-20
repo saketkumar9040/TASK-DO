@@ -18,7 +18,28 @@ export const styles = StyleSheet.create({
       resizeMode:"contain"
     },
     tasksContainer:{
-      
+        backgroundColor:"#81d4fa",
+        marginVertical:15,
+        padding:10,
+        marginHorizontal:10,
+        borderRadius:20,
+        width:350
+        
+    },
+    taskTitle:{
+       fontSize:25,
+       color:"#fff",
+       fontWeight:"900",
+       textAlign:"center",
+    },
+    taskDescription:{
+        fontSize:17,
+        color:"#81d4fa",
+        fontWeight:"500",
+        padding:10,
+        backgroundColor:"#fff",
+        borderRadius:8,
+        margin:6
     },
     input: {
         backgroundColor: "#fff",
