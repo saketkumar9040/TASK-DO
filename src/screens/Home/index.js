@@ -1,14 +1,17 @@
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity,SafeAreaView, Image } from 'react-native'
 import React from 'react'
 import { Entypo } from '@expo/vector-icons';
 import { styles } from './style';
+import logo from "../../../assets/images/homeIcon.png"
 
 const HomeScreen = () => {
   return (
     <>
-    <View style={styles.mainContainer}>
-      <Text>HomeScreen</Text>
-    </View>
+    <SafeAreaView style={styles.mainContainer}>
+      <View style={styles.logoContainer}>
+          <Image source={logo} style={styles.logoImage}/>
+      </View>
+    </SafeAreaView>
      <TouchableOpacity style={styles.addTaskContainer}>
      <Entypo name="add-to-list" size={40} color="#fff" />
      </TouchableOpacity>
