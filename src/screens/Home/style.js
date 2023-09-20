@@ -41,6 +41,13 @@ export const styles = StyleSheet.create({
         borderRadius:8,
         margin:6
     },
+    taskIconContainer:{
+        flexDirection:"row",
+        alignItems:"center",
+        justifyContent:"space-between",
+        paddingHorizontal:10,
+        padding:5
+    },
     input: {
         backgroundColor: "#fff",
         borderWidth: 1,
