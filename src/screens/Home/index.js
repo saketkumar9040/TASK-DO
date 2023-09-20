@@ -1,20 +1,78 @@
-import { View, Text, TouchableOpacity,SafeAreaView, Image } from 'react-native'
-import React from 'react'
+import { View, Text, TouchableOpacity,SafeAreaView, Image, ScrollView } from 'react-native';
+import React, { useState } from 'react'
 import { Entypo } from '@expo/vector-icons';
 import { styles } from './style';
 import logo from "../../../assets/images/homeIcon.png"
+import { Dialog ,Button,TextInput} from 'react-native-paper';
 
 const HomeScreen = () => {
+  const [ taskList,setTaskList] = useState([]);
+  const [openDialog, setopenDialog] = useState(false);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+ 
+  const hideDialog = () => {
+    setopenDialog(!openDialog);
+  };
+
+  const addTaskHandler = async () => {
+ 
+  };
+
   return (
     <>
     <SafeAreaView style={styles.mainContainer}>
       <View style={styles.logoContainer}>
           <Image source={logo} style={styles.logoImage}/>
       </View>
+      <ScrollView style={styles.tasksContainer}>
+         
+      </ScrollView>
     </SafeAreaView>
-     <TouchableOpacity style={styles.addTaskContainer}>
+    <TouchableOpacity style={styles.addTaskContainer} onPress={()=>hideDialog()}>
      <Entypo name="add-to-list" size={40} color="#fff" />
      </TouchableOpacity>
+   
+    <Dialog
+        visible={openDialog}
+        onDismiss={()=>hideDialog()}
+        style={{ backgroundColor: "#6495ED",borderRadius:30, }}
+      >
+        <Dialog.Title style={{ color: "white", fontWeight: 800 }}>
+          ADD A TASK
+        </Dialog.Title>
+        <Dialog.Content>
+          <TextInput
+            style={styles.input}
+            placeholder="Title"
+            value={title}
+            onChangeText={setTitle}
+            autoCapitalize="none"
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Description"
+            value={description}
+            onChangeText={setDescription}
+            autoCapitalize="none"
+          />
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <TouchableOpacity onPress={()=>hideDialog()}>
+              <Text  style={{ fontSize: 20, color: "white" }}>CANCEL</Text>
+            </TouchableOpacity>
+            <Button
+              onPress={()=>addTaskHandler()}
+              color="#900"
+              disabled={!title || !description }
+              style={{ fontSize: 20, color: "white" }}
+            >
+              <Text  style={{ fontSize: 20, color: "white" }}>
+              ADD
+              </Text>   
+            </Button>
+          </View>
+        </Dialog.Content>
+      </Dialog>
     </>
   );
 }

@@ -13,6 +13,22 @@ export const styles = StyleSheet.create({
       height:80,
       resizeMode:"contain"
     },
+    tasksContainer:{
+      
+    },
+    input: {
+        backgroundColor: "#fff",
+        borderWidth: 1,
+        borderColor: "#b5b5b5",
+        padding: 2,
+        paddingLeft: 15,
+        borderRadius: 20,
+        borderTopRightRadius:20,
+        borderTopLeftRadius:20,
+        marginVertical: 5,
+        fontSize: 22,
+        marginBottom:20,
+      },
 
     addTaskContainer:{
         marginVertical:10,
