@@ -7,18 +7,19 @@ import { Dialog ,Button,TextInput} from 'react-native-paper';
 import {auth} from "../../firebase/firebaseConfig"
 import {child, getDatabase, push, ref } from "firebase/database"
 import { useDispatch, useSelector } from 'react-redux';
+import { addTask } from '../../redux/taskSlice';
 const HomeScreen = () => {
 
   const dispatch = useDispatch();
 
   const taskList = useSelector((state)=>state.task.taskList);
   console.log(taskList)
-  const [openDialog, setopenDialog] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
  
   const hideDialog = () => {
-    setopenDialog(!openDialog);
+    setOpenDialog(!openDialog);
   };
 
   const addTaskHandler = async () => {
@@ -40,10 +41,15 @@ const HomeScreen = () => {
         await push(childRef,taskData);
 
         // DISPATCHING TASK DATA TO LOCAL STORE ==========================================>
+        
+        dispatch(addTask({task:taskData}));
+        setOpenDialog(false)
 
+        Alert.alert("Hurray 🤗", "Task added successfully")
 
        } catch (error) {
           console.log(error.message);
+          setOpenDialog(false)
           Alert.alert("Sorry 😣","Task cannot be added at the moment")
        }
   };
