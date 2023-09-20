@@ -20,8 +20,9 @@ import { addTask } from "../../redux/taskSlice";
 const HomeScreen = () => {
   const dispatch = useDispatch();
 
-  const taskList = useSelector((state) => state.task.taskList);
-  // console.log(taskList)
+  const allTasks = useSelector((state) => state.task.taskList);
+  const taskList = Object.values(allTasks)
+  // console.log(Object.values(allTasks))
   const [openDialog, setOpenDialog] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
