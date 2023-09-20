@@ -47,7 +47,7 @@ const LoginScreen = ({ navigation }) => {
       const dbRef = ref(getDatabase());
       const childRef = child(dbRef, `UserData/${uid}`);
       const snapshot = (await get(childRef)).val();
-      console.log(snapshot);
+      // console.log(snapshot);
 
       // DISPATCH USERDATA TO REDUX STORE ===================================================>
 
@@ -56,7 +56,7 @@ const LoginScreen = ({ navigation }) => {
         password:snapshot.password
       }}));
       
-      Alert.alert("Hurray🤩",`Dear ${snapshot.name} logged in successfully`);
+      Alert.alert("Hurray🤩",`Dear ${snapshot.name} you are logged in successfully`);
 
     } catch (error) {
       console.log(error.message);
