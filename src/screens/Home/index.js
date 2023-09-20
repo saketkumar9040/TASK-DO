@@ -14,7 +14,7 @@ import { styles } from "./style";
 import logo from "../../../assets/images/homeIcon.png";
 import { Dialog, Button, TextInput } from "react-native-paper";
 import { auth } from "../../firebase/firebaseConfig";
-import { child, getDatabase, push, ref, update } from "firebase/database";
+import { child, getDatabase, push, ref, remove, update } from "firebase/database";
 import { useDispatch, useSelector } from "react-redux";
 import { addTask } from "../../redux/taskSlice";
 const HomeScreen = () => {
@@ -71,15 +71,22 @@ const HomeScreen = () => {
         ...item,
         completed:status
       }
-      update(childRef,updatedTask);
+      await update(childRef,updatedTask);
 
      } catch (error) {
       console.log(error)
      }
   };
   
-  const deleteTaskHandler = async () => {
-
+  const deleteTaskHandler = async (item) => {
+     try {
+      const dbRef = ref(getDatabase());
+      const childRef = child(dbRef,`Tasks/${loggedInUser.uid}/${item.key}`)
+      await remove(childRef);
+      Alert.alert("Task deleted successfully")
+     } catch (error) {
+        console.log(error)
+     }
   }
   return (
     <>
@@ -105,7 +112,7 @@ const HomeScreen = () => {
                         <TouchableOpacity onPress={()=>markCompletedHandler(item.item)}>
                         <Fontisto name={item.item.completed?"checkbox-active":"checkbox-passive"} size={30} color="#fff" />
                         </TouchableOpacity>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={()=>deleteTaskHandler(item.item)}>
                         <AntDesign name="delete" size={30} color="#fff" />
                         </TouchableOpacity>
                       </View>
