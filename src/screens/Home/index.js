@@ -1,23 +1,51 @@
-import { View, Text, TouchableOpacity,SafeAreaView, Image, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity,SafeAreaView, Image, ScrollView, Alert } from 'react-native';
 import React, { useState } from 'react'
 import { Entypo } from '@expo/vector-icons';
 import { styles } from './style';
 import logo from "../../../assets/images/homeIcon.png"
 import { Dialog ,Button,TextInput} from 'react-native-paper';
-
+import {auth} from "../../firebase/firebaseConfig"
+import {child, getDatabase, push, ref } from "firebase/database"
+import { useDispatch, useSelector } from 'react-redux';
 const HomeScreen = () => {
+
+  const dispatch = useDispatch();
+
+  const taskList = useSelector((state)=>state.task.taskList);
+  console.log(taskList)
   const [openDialog, setopenDialog] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  console.log(title)
-  console.log(description)
  
   const hideDialog = () => {
     setopenDialog(!openDialog);
   };
 
   const addTaskHandler = async () => {
- 
+       try {
+        // FETCHING LOGGED IN USER DETAILS =========================================>
+        const loggedInUser = auth.currentUser;
+
+        // ADDING TASK TO REALTIME DATABASE =========================================>
+
+        const taskData = {
+          title,
+          description,
+          createdAt: new Date().toISOString(),
+          completed:false,
+        };
+
+        const dbRef = ref(getDatabase());
+        const childRef = child(dbRef,`Tasks/${loggedInUser.uid}`);
+        await push(childRef,taskData);
+
+        // DISPATCHING TASK DATA TO LOCAL STORE ==========================================>
+
+
+       } catch (error) {
+          console.log(error.message);
+          Alert.alert("Sorry 😣","Task cannot be added at the moment")
+       }
   };
 
   return (
