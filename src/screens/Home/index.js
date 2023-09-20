@@ -36,7 +36,7 @@ const HomeScreen = () => {
     <Dialog
         visible={openDialog}
         onDismiss={()=>hideDialog()}
-        style={{ backgroundColor: "#6495ED",borderRadius:30, }}
+        style={{ backgroundColor: "#81d4fa",borderRadius:30, }}
       >
         <Dialog.Title style={{ color: "white", fontWeight: 800 }}>
           ADD A TASK
@@ -44,19 +44,21 @@ const HomeScreen = () => {
         <Dialog.Content>
           <TextInput
             style={styles.input}
-            placeholder="Title"
+            placeholder="Enter Title"
             value={title}
             onChangeText={setTitle}
             autoCapitalize="none"
           />
           <TextInput
             style={styles.input}
-            placeholder="Description"
+            placeholder="Enter description"
             value={description}
             onChangeText={setDescription}
             autoCapitalize="none"
+            multiline
+            numberOfLines={5}
           />
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <View style={{ flexDirection: "row", alignItems: "center",justifyContent:"space-between" }}>
             <TouchableOpacity onPress={()=>hideDialog()}>
               <Text  style={{ fontSize: 20, color: "white" }}>CANCEL</Text>
             </TouchableOpacity>
