@@ -17,6 +17,7 @@ import { child, getDatabase, ref, set } from "firebase/database";
 import { auth, db } from "../../firebase/firebaseConfig";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { authenticate } from "../../redux/authSlice";
+import { useDispatch } from "react-redux";
 
 const RegisterScreen = ({ navigation }) => {
 
@@ -37,7 +38,7 @@ const RegisterScreen = ({ navigation }) => {
       // CREATING USER AUTHENTICATION CREDENTIALS IN FIREBASE =====================================>
       const registerUser = await createUserWithEmailAndPassword(auth,userDetails.email,userDetails.password);
       const {uid} = registerUser.user
-      console.log(uid);
+      // console.log(uid);
 
       // SAVING USER DATA TO REALTIME DATABASE =====================================================>
 

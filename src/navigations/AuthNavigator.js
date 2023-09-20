@@ -10,7 +10,8 @@ import { useSelector } from "react-redux";
 const Stack = createNativeStackNavigator();
 
 const AuthNavigator = () => {
-   const isAuth = useSelector((state) => state.auth.userData.email !== null);
+   const isAuth = useSelector((state) => state.auth.userData !== null);
+   console.log(isAuth)
    
   return (
     <NavigationContainer>
