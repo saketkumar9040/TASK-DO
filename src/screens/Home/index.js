@@ -50,13 +50,17 @@ const HomeScreen = () => {
 
       // DISPATCHING TASK DATA TO LOCAL STORE ==========================================>
 
-      dispatch(addTask({ task: taskData }));
       setOpenDialog(false);
+      setTitle("");
+      setDescription("");
 
       Alert.alert("Hurray 🤗", "Task added successfully");
+      
     } catch (error) {
       console.log(error.message);
       setOpenDialog(false);
+      setTitle("");
+      setDescription("");
       Alert.alert("Sorry 😣", "Task cannot be added at the moment");
     }
   };
@@ -77,6 +81,10 @@ const HomeScreen = () => {
       console.log(error)
      }
   };
+
+  const editTaskHandler = async (item) => {
+    
+  }
   
   const deleteTaskHandler = async (item) => {
      try {

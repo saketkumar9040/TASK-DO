@@ -21,7 +21,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#81D4FA"
-      }
+      },
+      "package": "com.saketkumar.TaskDo"
     },
     "androidStatusBar": {
       "barStyle": "light-content",
@@ -32,6 +33,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "4dad5e29-ef54-4f09-972f-d8546922bb83"
+      }
     }
   }
 }
